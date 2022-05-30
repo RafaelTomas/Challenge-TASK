@@ -13,6 +13,6 @@ module.exports={
         const user = await User.findAll()
        
         return res.json(user)
-    }
+    },
 
 }

@@ -7,6 +7,7 @@ class User extends Model {
            senha: DataTypes.STRING,
         },{sequelize})
     }
+
 }
 
 module.exports = User;
