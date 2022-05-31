@@ -11,8 +11,10 @@ class Task extends Model {
             },
             userId: {
                 type: DataTypes.INTEGER,
-                references: 'users',
-                referencesKey: 'id'
+                allowNull: false,
+                references: { model: 'users', key: 'id' },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE'
             },
             nome: DataTypes.STRING,
             descricao: DataTypes.STRING,

@@ -1,7 +1,6 @@
-const User = require ('../models/User')
+const User = require ('../Models/User')
 
 module.exports={
-
     async create(req, res) {
         const { login, senha } = req.body;
         const user = await User.create({ login, senha})

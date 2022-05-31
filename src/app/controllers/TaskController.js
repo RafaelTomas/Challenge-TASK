@@ -1,5 +1,7 @@
-const Task = require('../models/Task')
-const User = require('../models/User')
+//const jwt = require('jsonwebtoken');
+const Task = require('../Models/Task')
+const User = require('../Models/User')
+
 
 module.exports = {
 
@@ -10,7 +12,7 @@ module.exports = {
         const user = await User.findByPk(userId);
         if(!user) return res.status(404).json({ error: 'user not found'})
         
-        const task = await Task.create({  nome, descricao, data_inicio, data_fim, status});
+        const task = await Task.create({ userId, nome, descricao, data_inicio, data_fim, status});
         return res.json(task);
     },
 
@@ -31,8 +33,8 @@ module.exports = {
       const user = await User.findByPk(userId);
 
       if(!user) return res.status(404).json({ error: 'user not found'})
-
-      const task = await Task.update( {
+    
+      const task = await Task.update({
         nome: nome,
         descricao: descricao,
         data_inicio: data_inicio,
@@ -41,6 +43,7 @@ module.exports = {
       },
       {
         where: {
+          userId: userId,
           id: id,
         },
       }
