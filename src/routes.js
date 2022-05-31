@@ -8,7 +8,8 @@ routes.post('/user', User.create);
 routes.get('/user', User.readAll);
 
 routes.post('/user/:userId/task', Task.create);
-routes.get('/user/:userId/task', Task.readAllUser);
+routes.get('/user/:userId/task', Task.readAllTask);
+routes.delete('/user/:userId/task/:id', Task.delete);
 
 
 

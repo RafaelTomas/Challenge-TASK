@@ -10,9 +10,10 @@ class Task extends Model {
            status: DataTypes.ENUM('pendente','concluida'),
         },{sequelize})
     }
-    static associate(models){
-        this.belongsTo(models.User, { foreignKey: 'userId', as: 'user'});
-    }
+    static associate(models) {
+        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+      }
+
 }
 
 module.exports = Task;
