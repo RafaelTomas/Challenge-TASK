@@ -10,6 +10,7 @@ routes.get('/user', User.readAll);
 routes.post('/user/:userId/task', Task.create);
 routes.get('/user/:userId/task', Task.readAllTask);
 routes.delete('/user/:userId/task/:id', Task.delete);
+routes.put('/user/:userId/task/:id', Task.update);
 
 
 

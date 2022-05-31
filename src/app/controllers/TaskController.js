@@ -5,12 +5,12 @@ module.exports = {
 
     async create(req, res) {
         const { userId } = req.params;
-        const { nome, descricao, data_inicio, data_fim } = req.body;
+        const { nome, descricao, data_inicio, data_fim, status } = req.body;
 
         const user = await User.findByPk(userId);
         if(!user) return res.status(404).json({ error: 'user not found'})
         
-        const task = await Task.create({  nome, descricao, data_inicio, data_fim});
+        const task = await Task.create({  nome, descricao, data_inicio, data_fim, status});
         return res.json(task);
     },
 
@@ -24,7 +24,30 @@ module.exports = {
 
       return res.json(task);
     },
-    async update(req, res ){},
+    
+    async update(req, res ){
+      const { userId, id} = req.params;
+      const { nome, descricao, data_inicio, data_fim, status } = req.body;
+      const user = await User.findByPk(userId);
+
+      if(!user) return res.status(404).json({ error: 'user not found'})
+
+      const task = await Task.update( {
+        nome: nome,
+        descricao: descricao,
+        data_inicio: data_inicio,
+        data_fim: data_fim,
+        status: status
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+
+      return res.json(task);
+    },
     
     async delete(req,res){
       const { userId } = req.params;
