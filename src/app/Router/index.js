@@ -2,6 +2,7 @@ const express = require('express');
 
 const { User, Task } = require('../controllers');
 const { userValid, taskValid } = require('../validators');
+
 const routes = express.Router();
 
 routes.post('/user', userValid, User.create);
