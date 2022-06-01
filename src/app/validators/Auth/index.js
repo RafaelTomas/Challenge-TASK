@@ -9,6 +9,6 @@ module.exports = async (req, res, next) => {
     if (error) throw new Error(error);
     return next();     
     } catch (error) {
-        return res.status(400).json({error: error.message});
+      return res.status(400).json({error: error.message});
     }
 }
