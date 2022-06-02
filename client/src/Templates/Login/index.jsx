@@ -1,23 +1,31 @@
+import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Stack,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-    Link,
-  } from '@chakra-ui/react';
-  import { useState } from 'react';
-  import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-  
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link as LinkChakra,
+} from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+
+
 function Login() {
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const history = useNavigate();
+
+  function handleClick(e) {
+      e.preventDefault();
+      history('/user/task');
+  }
   
     return (
       <Flex
@@ -28,7 +36,7 @@ function Login() {
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
-              Registre-se
+              Login
             </Heading>
             <Text fontSize={'lg'} color={'gray.600'}>
               acesse suas tarefas ✌️
@@ -67,13 +75,15 @@ function Login() {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
-                  Sign up
+                  }}
+                  onClick={handleClick}
+                >
+                  Login
                 </Button>
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Already a user? <Link color={'blue.400'}>Login</Link>
+                  Não tem um usuario?<LinkChakra color={'blue.400'}> <Link to='/user'>Registre-se</Link></LinkChakra>
                 </Text>
               </Stack>
             </Stack>
