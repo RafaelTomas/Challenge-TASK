@@ -18,8 +18,8 @@ class Task extends Model {
             },
             nome: DataTypes.STRING,
             descricao: DataTypes.STRING,
-            data_inicio: DataTypes.DATE(6),
-            data_fim: DataTypes.DATE(6),
+            data_inicio: DataTypes.DATEONLY(6),
+            data_fim: DataTypes.DATEONLY(6),
             status: DataTypes.ENUM('pendente', 'concluida'),
         }, { sequelize })
     }

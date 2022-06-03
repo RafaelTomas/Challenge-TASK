@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
             descricao: joi.string().required(),
 	        data_inicio: joi.date(),
 	        data_fim: joi.date(),
-	        status:joi.string().valid('pendednte', 'concluida'),
+	        status:joi.string().valid('pendente', 'concluida'),
         });
         const { error } = await taskSchema.validate(req.body, { abortEarl: true });
     if (error) throw new Error(error);

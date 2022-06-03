@@ -17,14 +17,28 @@ import {
 } from '@chakra-ui/react';
 import api from '../../services/api';
 import Cards from '../../components/Cards';
+import { Controller, useForm } from 'react-hook-form';
 
 function Task() {
   const [tasks, setTasks] = useState([]);
+  const { control, handleSubmit, formState } = useForm({ mode: 'onChange' });
+
+  const onSubmit = async (formData) => {
+    try {
+      console.log(formData);
+      const { data } = await api.post('/user/14/task', formData);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
 
   useEffect(() => {
     const loadTask = async () => {
-      try {
-        const { status, data } = await api.get('/user');
+      try { 
+        const { data } = await api.get('/user/14/task');
+        console.log(data);
         setTasks(data);
       } catch (error) {
         console.error(error);
@@ -44,11 +58,11 @@ function Task() {
         <Stack spacing={{ base: 10, md: 20 }}>
           {tasks.length != 0 && tasks.map(task => (
             <Cards key={task.id} >
-              <ListItem>{task.login}</ListItem>
-              <ListItem>{task.senha}</ListItem>
-              {/* <ListItem>{task.dataInicio}</ListItem>
-                <ListItem>{task.dataFim}</ListItem>
-                <ListItem>{task.status}</ListItem> */}
+              <ListItem>{task.nome}</ListItem>
+              <ListItem>{task.descricao}</ListItem>
+              <ListItem>{task.data_inicio}</ListItem>
+              <ListItem>{task.data_fim}</ListItem>
+              <ListItem>{task.status}</ListItem>
             </Cards>
           ))}
         </Stack>
@@ -73,56 +87,83 @@ function Task() {
             color={useColorModeValue('gray.700', 'whiteAlpha.900')}
             shadow="base">
             <VStack spacing={5}>
-              <FormControl >
-                <FormLabel>Nome</FormLabel>
-                <InputGroup>
-
-                  <Input type="text" name="nome" placeholder="Nome da atividade" />
-                </InputGroup>
-              </FormControl>
-
-              <FormControl >
-                <FormLabel>Descrição:</FormLabel>
-                <Textarea
-                  name="descricao"
-                  placeholder="ex: Aniversario de Jó"
-                  rows={6}
-                  resize="none"
-                />
-              </FormControl>
-              <FormControl >
-                <FormLabel>Data Inicio</FormLabel>
-                <InputGroup>
-
-                  <Input
-                    type="date"
-                    name="dataInicio"
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl >
-                <FormLabel>Data Fim</FormLabel>
-                <InputGroup>
-                  <Input
-                    type="date"
-                    name="DataFim"
-                  />
-                </InputGroup>
-              </FormControl>
-
-              <Button
-                colorScheme="blue"
-                bg="blue.400"
-                color="white"
-                _hover={{
-                  bg: 'blue.500',
-                }}
-                isFullWidth>
-                Cadastre sua tarefa!
-              </Button>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <FormControl >
+                  <FormLabel>Nome</FormLabel>
+                  <InputGroup>
+                    <Controller
+                      name="nome"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => <Input type="text" placeholder="Nome da atividade" {...field} />}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl >
+                  <FormLabel>Descrição:</FormLabel>
+                  <InputGroup>
+                    <Controller
+                      name="descricao"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => <Textarea resize="none" rows='6' placeholder="ex: Aniversario de Jó"
+                        {...field} />}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl >
+                  <FormLabel>Status</FormLabel>
+                  <InputGroup>
+                    <Controller
+                      name="status"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => <Input
+                        type="text"
+                        {...field} />}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl >
+                  <FormLabel>Data Inicio</FormLabel>
+                  <InputGroup>
+                    <Controller
+                      name="data_inicio"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => <Input
+                        type="text"
+                        {...field} />}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl >
+                  <FormLabel>Data Fim</FormLabel>
+                  <InputGroup>
+                    <Controller
+                      name="data_fim"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => <Input
+                        type="text"
+                        {...field} />}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <Button
+                  type="submit"
+                  isDisabled={!formState.isValid}
+                  colorScheme="blue"
+                  bg="blue.400"
+                  color="white"
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                  isFullWidth>
+                  Cadastre sua tarefa!
+                </Button>
+              </form>
             </VStack>
-
-
           </Box>
         </Stack>
       </Container>

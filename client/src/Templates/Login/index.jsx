@@ -26,7 +26,7 @@ function Login() {
   const onSubmit = async (formData) => {
     try {
       const { data } = await api.post('/user/login', formData);
-      console.log(localStorage.setItem('auth.token', data.token));
+      localStorage.setItem('auth.token', data.token);
     } catch (error) {
       console.log(error);
     }
