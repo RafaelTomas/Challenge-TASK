@@ -33,38 +33,3 @@ class User extends Model {
 }
 
 module.exports = User;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const { Sequelize } = require("sequelize");
-
-// module.exports = (sequelize, DataTypes) => {
-//     return sequelize.define("User", {
-//         id: {
-//             type: DataTypes.INTEGER,
-//             autoIncrement: true,
-//             primaryKey: true
-//         },
-//         login: {
-//             type: DataTypes.STRING,
-//             allowNull: false
-//         },
-//         senha: {
-//             type: DataTypes.STRING,
-//             allowNull: false
-//         },
-
-//     });
-// };
-
-

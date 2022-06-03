@@ -3,8 +3,8 @@ const generateToken= require('../Utils/generateToken')
 
 module.exports={
     async create(req, res) {
+        const { login, senha } = req.body;
         try {
-            const { login, senha } = req.body;
             const user = await User.create({ login, senha})
             return res.status(201).json({ user, token: generateToken({id: user.id})});
         } catch (error) {

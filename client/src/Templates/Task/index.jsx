@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Stack,
@@ -14,24 +14,15 @@ import {
   FormLabel,
   InputGroup,
   Textarea,
-} from "@chakra-ui/react";
+  ListItem
+} from '@chakra-ui/react';
 import api from '../../services/api';
-import Cards from '../../Components/Cards';
+import Cards from '../../components/Cards';
 
 function Task() {
   const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    const loadTask = async () => {
-      try {
-        const { status, data } = await api.get(`/user/14/task`)
-        setTasks(data)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    loadTask()
-  }, [])
+  const {control,}
+ 
 
 
   return (
@@ -43,13 +34,17 @@ function Task() {
         spacing={{ base: 10, lg: 32 }}
         py={{ base: 10, sm: 20, lg: 32 }}>
         <Stack spacing={{ base: 10, md: 20 }}>
+          <Cards >
             {tasks.length != 0 && tasks.map(task => (
-          <Cards>
-              <p key={task.id}>
-                {task.login} {task.senha}
-              </p>
-          </Cards>
+              <div key={task.id}>
+                <ListItem>{task.nome}</ListItem>
+                <ListItem>{task.descricao}</ListItem>
+                <ListItem>{task.dataInicio}</ListItem>
+                <ListItem>{task.dataFim}</ListItem>
+                <ListItem>{task.status}</ListItem>
+              </div >
             ))}
+          </Cards>
           <Stack direction={'row'} spacing={4} align={'center'}>
             <Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
             </Text>
