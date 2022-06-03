@@ -1,14 +1,13 @@
+import React from 'react';
 import {
   Box,
   Center,
   Stack,
   List,
-  ListItem,
   Button,
   useColorModeValue,
 } from '@chakra-ui/react';
-import React from 'react';
-
+import PropTypes from 'prop-types';
 
 function Cards({children}) {
   return (
@@ -65,5 +64,8 @@ function Cards({children}) {
     </Center>
   );
 }
+Cards.propTypes = {
+  children: PropTypes.string,
+};
 
 export default Cards;

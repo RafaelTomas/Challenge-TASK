@@ -3,7 +3,6 @@ import {
   Box,
   Stack,
   Heading,
-  Text,
   Container,
   Input,
   Button,
@@ -21,9 +20,18 @@ import Cards from '../../components/Cards';
 
 function Task() {
   const [tasks, setTasks] = useState([]);
-  const {control,}
- 
 
+  useEffect(() => {
+    const loadTask = async () => {
+      try {
+        const { status, data } = await api.get('/user');
+        setTasks(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadTask();
+  }, []);
 
   return (
     <Box position={'relative'}>
@@ -34,21 +42,15 @@ function Task() {
         spacing={{ base: 10, lg: 32 }}
         py={{ base: 10, sm: 20, lg: 32 }}>
         <Stack spacing={{ base: 10, md: 20 }}>
-          <Cards >
-            {tasks.length != 0 && tasks.map(task => (
-              <div key={task.id}>
-                <ListItem>{task.nome}</ListItem>
-                <ListItem>{task.descricao}</ListItem>
-                <ListItem>{task.dataInicio}</ListItem>
+          {tasks.length != 0 && tasks.map(task => (
+            <Cards key={task.id} >
+              <ListItem>{task.login}</ListItem>
+              <ListItem>{task.senha}</ListItem>
+              {/* <ListItem>{task.dataInicio}</ListItem>
                 <ListItem>{task.dataFim}</ListItem>
-                <ListItem>{task.status}</ListItem>
-              </div >
-            ))}
-          </Cards>
-          <Stack direction={'row'} spacing={4} align={'center'}>
-            <Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
-            </Text>
-          </Stack>
+                <ListItem>{task.status}</ListItem> */}
+            </Cards>
+          ))}
         </Stack>
         <Stack
           bg={'gray.50'}

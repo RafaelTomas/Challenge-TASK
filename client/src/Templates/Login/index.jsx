@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -22,19 +22,16 @@ import api from '../../services/api';
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit, formState } = useForm({ mode: 'onChange' });
-  
+
   const onSubmit = async (formData) => {
     try {
       const { data } = await api.post('/user/login', formData);
-      console.log(data);
+      console.log(localStorage.setItem('auth.token', data.token));
     } catch (error) {
       console.log(error);
     }
-    
+
   };
-    
-
-
 
   return (
     <Flex
@@ -99,7 +96,7 @@ function Login() {
                     bg: 'blue.500',
                   }}
                 >
-                  Login
+                  <Link to='/user/task'> Login </Link>
                 </Button>
               </Stack>
               <Stack pt={6}>

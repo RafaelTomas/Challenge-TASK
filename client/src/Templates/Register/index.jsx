@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
   FormControl,
@@ -15,11 +16,23 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { Controller, useForm } from 'react-hook-form';
+
 import api from '../../services/api';
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const { control, handleSubmit, formState } = useForm({ mode: 'onChange' });
+  
+  const onSubmit = async (formData) => {
+    try {
+      const { data } = await api.post('/user', formData);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }  
+  };
+    
   return (
     <Flex
       minH={'100vh'}
@@ -29,10 +42,10 @@ function Register() {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Registre-se
+            Registre
           </Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
-            Crie sua conta para acessar suas tarefas ✌️
+            Registre e escreva suas  tarefas ✌️
           </Text>
         </Stack>
         <Box
@@ -40,43 +53,58 @@ function Register() {
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
           p={8}>
-          <Stack spacing={4} >
-            <FormControl id="login" isRequired>
-              <FormLabel>Login</FormLabel>
-              <Input type="login" onChange={({})} />
-            </FormControl>
-            <FormControl id="password" isRequired>
-              <FormLabel>Senha</FormLabel>
-              <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
-                <InputRightElement h={'full'}>
-                  <Button
-                    variant={'ghost'}
-                    onClick={() =>
-                      setShowPassword((showPassword) => !showPassword)
-                    }>
-                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-            <Stack spacing={10} pt={2}>
-              <Button
-                loadingText="Submitting"
-                size="lg"
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}>
-                Inscrever-se
-              </Button>
-            </Stack>
-            <Stack pt={6}>
-              <Text align={'center'}>
-                Já tem um usuario?<LinkChakra color={'blue.400'}> Login </LinkChakra>
-              </Text>
-            </Stack>
+          <Stack spacing={4}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FormControl id="login" isRequired>
+                <FormLabel>Login</FormLabel>
+                <Controller
+                  name="login"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => <Input type="text" {...field} />}
+                />
+              </FormControl>
+              <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Controller
+                    name="senha"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => <Input type={showPassword ? 'text' : 'password'} {...field} />}
+                  />
+                  <InputRightElement h={'full'}>
+                    <Button
+                      variant={'ghost'}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }>
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Stack spacing={10} pt={2}>
+                <Button
+                  type="submit"
+                  isDisabled={!formState.isValid}
+                  loadingText="Submitting"
+                  size="lg"
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                >
+                  Insreva-se
+                </Button>
+              </Stack>
+              <Stack pt={6}>
+                <Text align={'center'}>
+                  tem um usuario?<LinkChakra color={'blue.400'}> <Link to='/user/login'>Login</Link></LinkChakra>
+                </Text>
+              </Stack>
+            </form>
           </Stack>
         </Box>
       </Stack>

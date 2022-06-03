@@ -10,7 +10,7 @@ const routes = express.Router();
 
 routes.post('/user', userValid, User.create);
 routes.get('/user', User.readAll);
-routes.post('/user/login', Auth.login)
+routes.post('/user/login', authValid,Auth.login)
 
 routes.post('/user/:userId/task', authMiddleware, taskValid, Task.create);
 routes.get('/user/:userId/task', authMiddleware, Task.readAllTask);

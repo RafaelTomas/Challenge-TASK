@@ -5,9 +5,9 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import './index.css';
 
-import Register from './templates/Register';
-import Login from './templates/Login';
-import Task from './templates/Task';
+import Register from './Templates/Register';
+import Login from './Templates/Login';
+import Task from './Templates/Task';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
