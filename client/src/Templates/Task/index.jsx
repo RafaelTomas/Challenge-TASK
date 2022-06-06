@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  
   Box,
   Stack,
   Heading,
@@ -15,7 +14,6 @@ import {
   InputGroup,
   Textarea,
   ListItem,
-  GridItem
 } from '@chakra-ui/react';
 import api from '../../services/api';
 import Cards from '../../Components/Cards';
@@ -23,10 +21,10 @@ import { Controller, useForm } from 'react-hook-form';
 
 function Task() {
   const [tasks, setTasks] = useState([]);
-  const {control, handleSubmit, formState } = useForm({ mode: 'onChange' });
+  const { control, handleSubmit, formState } = useForm({ mode: 'onChange' });
   const [refresh, setRefresh] = useState(false);
- 
-  
+
+
   const onSubmit = async (formData) => {
     try {
       const { data } = await api.post('/task/', formData);
@@ -50,7 +48,6 @@ function Task() {
     loadTask();
   }, [refresh]);
 
-  
   return (
     <Box position={'relative'}>
       <Container
@@ -159,9 +156,12 @@ function Task() {
             </VStack>
           </Box>
         </Stack>
-        <GridItem spacing={8}>
+        <Box>
           {tasks.length != 0 && tasks.map(task => (
-            <Cards key={task.id} >
+            <Cards handleDelete={async () => {
+              const teste = await api.delete(`/task/${task.id}`);
+              setRefresh(!refresh);
+            }} key={task.id} >
               <ListItem>{task.nome}</ListItem>
               <ListItem>{task.descricao}</ListItem>
               <ListItem>{task.data_inicio}</ListItem>
@@ -169,7 +169,7 @@ function Task() {
               <ListItem>{task.status}</ListItem>
             </Cards>
           ))}
-        </GridItem>
+        </Box>
       </Container>
     </Box>
   );

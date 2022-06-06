@@ -4,8 +4,8 @@ module.exports = async (req, res, next) => {
     const taskSchema = joi.object({
       nome: joi.string().required(),
       descricao: joi.string().required(),
-      data_inicio: joi.date().format('YYYY/MM/DD'),
-      data_fim: joi.date().format('YYYY/MM/DD'),
+      data_inicio: joi.date().format('YYYY-MM-DD'),
+      data_fim: joi.date().format('YYYY-MM-DD'),
       status: joi.string().valid('pendente', 'concluida'),
     });
     const { error } = await taskSchema.validate(req.body, { abortEarl: true });

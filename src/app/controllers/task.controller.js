@@ -61,8 +61,8 @@ module.exports = {
 
   async delete(req, res) {
     try {
-      const userId = req.user.id;
-      const task = await Task.destroy({ where: { userId } });
+      const id = req.params.id;
+      const task = await Task.destroy({ where: { id } });
 
       return res.status(200).json({ message: 'Deleted task.', task });
 
