@@ -1,8 +1,8 @@
-const User = require('./UserController');
-const Task = require('./TaskController');
-const Auth = require('./AuthController');
+const UserController = require('./user.controller');
+const TaskController = require('./task.controller');
+const AuthController = require('./auth.controller');
 
 
 module.exports = {
-    User, Task, Auth,
+    UserController, TaskController, AuthController,
 }
