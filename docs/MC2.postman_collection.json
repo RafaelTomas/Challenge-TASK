@@ -71,21 +71,11 @@
 			"name": "Task",
 			"item": [
 				{
-					"name": "By ID",
+					"name": "Find All",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDkyNTg5LCJleHAiOjE2NTQ1Nzg5ODl9.gx2MtTPWSMTph-WAoZJbZ5AQ9Jbf55vHDJbt9cJq9EM",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -109,10 +99,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"crud\",\n    \"descricao\": \"blanalbalba\",\n    \"data_inicio\": 24032003,\n    \"data_fim\": 25032020,\n    \"status\": \"concluida\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ENVIRONMENT}}/task",
+							"host": [
+								"{{ENVIRONMENT}}"
+							],
+							"path": [
+								"task"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -137,6 +163,11 @@
 		{
 			"key": "ENVIRONMENT",
 			"value": "http://localhost:5500",
+			"type": "default"
+		},
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDkyNTg5LCJleHAiOjE2NTQ1Nzg5ODl9.gx2MtTPWSMTph-WAoZJbZ5AQ9Jbf55vHDJbt9cJq9EM",
 			"type": "default"
 		}
 	]
