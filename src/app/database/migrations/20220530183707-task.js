@@ -26,6 +26,7 @@ module.exports = {
       },
       data_inicio:{
         type: Sequelize.DATEONLY,
+
       },
       data_fim:{
         type: Sequelize.DATEONLY,

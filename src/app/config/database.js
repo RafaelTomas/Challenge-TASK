@@ -7,6 +7,5 @@ module.exports = {
   database: 'crud',
   define: {
     timestamps: true,
-    quoteIdentifiers: false,
   }
 };

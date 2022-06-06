@@ -8,9 +8,6 @@ module.exports = {
       const userId = req.user.id;
       const { nome, descricao, data_inicio, data_fim, status } = req.body;
 
-      const user = await User.findByPk(userId);
-      if (!user) return res.status(404).json({ error: 'user not found' });
-
       const task = await Task.create({ userId, nome, descricao, data_inicio, data_fim, status });
       return res.status(200).json(task);
     } catch (error) {
@@ -23,7 +20,9 @@ module.exports = {
 
     try {
       const task = await Task.findAll({ where: { userId } });
+
       return res.status(200).json(task);
+
     } catch (error) {
       res.status(500).json({
         message: 'Erro ao buscar tarefas',
@@ -38,9 +37,6 @@ module.exports = {
       const userId = req.user.id;
 
       const { nome, descricao, data_inicio, data_fim, status } = req.body;
-      const user = await User.findByPk(userId);
-
-      if (!user) return res.status(404).json({ error: 'user not found' });
 
       const task = await Task.update({
         nome: nome,
@@ -66,11 +62,10 @@ module.exports = {
   async delete(req, res) {
     try {
       const userId = req.user.id;
-      const user = await User.findByPk(userId);
-      if (!user) return res.status(404).json({ error: 'user not found' });
-
       const task = await Task.destroy({ where: { userId } });
+
       return res.status(200).json({ message: 'Deleted task.', task });
+
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
