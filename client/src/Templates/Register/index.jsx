@@ -101,7 +101,7 @@ function Register() {
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  tem um usuario?<LinkChakra color={'blue.400'}> <Link to='/user/login'>Login</Link></LinkChakra>
+                  tem um usuario?<LinkChakra color={'blue.400'}> <Link to='/login'>Login</Link></LinkChakra>
                 </Text>
               </Stack>
             </form>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  
   Box,
   Stack,
   Heading,
@@ -13,31 +14,33 @@ import {
   FormLabel,
   InputGroup,
   Textarea,
-  ListItem
+  ListItem,
+  GridItem
 } from '@chakra-ui/react';
 import api from '../../services/api';
-import Cards from '../../components/Cards';
+import Cards from '../../Components/Cards';
 import { Controller, useForm } from 'react-hook-form';
 
 function Task() {
   const [tasks, setTasks] = useState([]);
-  const { control, handleSubmit, formState } = useForm({ mode: 'onChange' });
-
+  const {control, handleSubmit, formState } = useForm({ mode: 'onChange' });
+  const [refresh, setRefresh] = useState(false);
+ 
+  
   const onSubmit = async (formData) => {
     try {
-      console.log(formData);
-      const { data } = await api.post('/user/14/task', formData);
+      const { data } = await api.post('/task/', formData);
       console.log(data);
+      setRefresh(!refresh);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-
   };
 
   useEffect(() => {
     const loadTask = async () => {
-      try { 
-        const { data } = await api.get('/user/14/task');
+      try {
+        const { data } = await api.get('/task/');
         console.log(data);
         setTasks(data);
       } catch (error) {
@@ -45,48 +48,37 @@ function Task() {
       }
     };
     loadTask();
-  }, []);
+  }, [refresh]);
 
+  
   return (
     <Box position={'relative'}>
       <Container
         as={SimpleGrid}
         maxW={'7xl'}
-        columns={{ base: 1, md: 2 }}
-        spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 32 }}>
-        <Stack spacing={{ base: 10, md: 20 }}>
-          {tasks.length != 0 && tasks.map(task => (
-            <Cards key={task.id} >
-              <ListItem>{task.nome}</ListItem>
-              <ListItem>{task.descricao}</ListItem>
-              <ListItem>{task.data_inicio}</ListItem>
-              <ListItem>{task.data_fim}</ListItem>
-              <ListItem>{task.status}</ListItem>
-            </Cards>
-          ))}
-        </Stack>
+        columns={{ md: 2 }}
+        py={{ base: 10, sm: 20, }}>
         <Stack
           bg={'gray.50'}
           rounded={'xl'}
           p={{ base: 4, sm: 6, md: 8 }}
           spacing={{ base: 8 }}
-          maxW={{ lg: 'lg' }}>
+          maxW={{ lg: 'm' }}>
           <Stack spacing={4}>
             <Heading
               color={'gray.800'}
               lineHeight={1.1}
-              fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
+              fontSize={{ md: '4xl' }}>
               Crie sua tarefa
             </Heading>
           </Stack>
           <Box
             bg={useColorModeValue('white', 'gray.700')}
-            borderRadius="lg"
-            p={8}
+            borderRadius="m"
+            p={4}
             color={useColorModeValue('gray.700', 'whiteAlpha.900')}
             shadow="base">
-            <VStack spacing={5}>
+            <VStack spacing={4} align={'stretch'}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl >
                   <FormLabel>Nome</FormLabel>
@@ -150,6 +142,7 @@ function Task() {
                     />
                   </InputGroup>
                 </FormControl>
+                <br />
                 <Button
                   type="submit"
                   isDisabled={!formState.isValid}
@@ -166,6 +159,17 @@ function Task() {
             </VStack>
           </Box>
         </Stack>
+        <GridItem spacing={8}>
+          {tasks.length != 0 && tasks.map(task => (
+            <Cards key={task.id} >
+              <ListItem>{task.nome}</ListItem>
+              <ListItem>{task.descricao}</ListItem>
+              <ListItem>{task.data_inicio}</ListItem>
+              <ListItem>{task.data_fim}</ListItem>
+              <ListItem>{task.status}</ListItem>
+            </Cards>
+          ))}
+        </GridItem>
       </Container>
     </Box>
   );

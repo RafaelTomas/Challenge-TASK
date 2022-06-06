@@ -25,7 +25,7 @@ function Login() {
 
   const onSubmit = async (formData) => {
     try {
-      const { data } = await api.post('/user/login', formData);
+      const { data } = await api.post('/login', formData);
       localStorage.setItem('auth.token', data.token);
     } catch (error) {
       console.log(error);
@@ -94,14 +94,13 @@ function Login() {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}
-                >
-                  <Link to='/user/task'> Login </Link>
+                  }}>
+                  <Link to='/task'> Login </Link>
                 </Button>
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Não tem um usuario?<LinkChakra color={'blue.400'}> <Link to='/user'>Registre-se</Link></LinkChakra>
+                  Não tem um usuario?<LinkChakra color={'blue.400'}> <Link to='/register'>Registre-se</Link></LinkChakra>
                 </Text>
               </Stack>
             </form>
