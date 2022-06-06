@@ -5,7 +5,7 @@ const { userValid } = require('../validators');
 const router = express.Router();
 
 router
-    .post('/', userValid, UserController.create)
-    .get('/', UserController.readAll);
+  .post('/', userValid, UserController.create)
+  .get('/', UserController.readAll);
 
 module.exports = router;

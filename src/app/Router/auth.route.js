@@ -6,6 +6,6 @@ const { authValid } = require('../validators');
 const router = express.Router();
 
 router 
-  .post('/', authValid, AuthController.login)
+  .post('/', authValid, AuthController.login);
 
 module.exports = router;

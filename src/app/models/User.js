@@ -20,10 +20,10 @@ class User extends Model {
           user.senha = bcrypt.hashSync(user.senha, salt);
         }
       },
-    })
+    });
     User.prototype.validPassword = function(senha) {
       return bcrypt.compareSync(senha, this.senha);
-    }
+    };
   }
 
   static associate(models) {

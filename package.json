@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
+    "lint": "eslint ./src --fix",
     "compose": "docker-compose up"
   },
   "keywords": [],
@@ -23,7 +24,9 @@
     "sequelize": "^6.20.1"
   },
   "devDependencies": {
+    "eslint": "^8.17.0",
     "nodemon": "^2.0.16",
+    "prettier": "2.6.2",
     "sequelize-cli": "^6.4.1"
   }
 }
