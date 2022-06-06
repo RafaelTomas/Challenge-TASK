@@ -162,12 +162,12 @@
 	"variable": [
 		{
 			"key": "ENVIRONMENT",
-			"value": "http://localhost:5500",
+			"value": "http://localhost:3333",
 			"type": "default"
 		},
 		{
 			"key": "TOKEN",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDkyNTg5LCJleHAiOjE2NTQ1Nzg5ODl9.gx2MtTPWSMTph-WAoZJbZ5AQ9Jbf55vHDJbt9cJq9EM",
+			"value": "",
 			"type": "default"
 		}
 	]

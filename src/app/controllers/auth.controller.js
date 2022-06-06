@@ -1,6 +1,7 @@
 const User = require('../Models/User');
 const generateToken = require('../Utils/generateToken');
 
+
 module.exports = {
   async login(req, res) {
     const { login, senha } = req.body;
@@ -15,7 +16,7 @@ module.exports = {
       }
 
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   },
 };
