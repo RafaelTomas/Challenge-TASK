@@ -35,6 +35,7 @@ function MyRoutes() {
             </ProtectedRoute>
           }
         />
+        <Route path='*' exact={true} element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>
   );

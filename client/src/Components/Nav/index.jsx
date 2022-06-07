@@ -2,15 +2,14 @@ import React from 'react';
 import {
   Box,
   Flex,
-  HStack,
   Link as LinkChakra,
   IconButton,
-  useDisclosure,
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import Button from '../Button';
 import { Link } from 'react-router-dom';
+import AuthService from '../../services/auth';
 
 const NavLink = () => (
   <LinkChakra
@@ -21,12 +20,11 @@ const NavLink = () => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}>
-    <Link to='/login'> Sign out</Link>
+    <Button bg='blue.400' onClick={() => AuthService.logout()} ><Link to='/login'> Sign out</Link></Button>
   </LinkChakra>
 );
 
 function Nav() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -34,27 +32,18 @@ function Nav() {
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'}>
-            <HStack
+          <Stack spacing={8} alignItems={'center'}>
+            <Stack
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               <NavLink>{<Link to='/login' />}</NavLink>
-            </HStack>
-          </HStack>
-        </Flex>
-        {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
-              <NavLink>{<Link to='/login' />}</NavLink>
             </Stack>
-          </Box>
-        ) : null}
+          </Stack>
+        </Flex>
       </Box>
 
     </>

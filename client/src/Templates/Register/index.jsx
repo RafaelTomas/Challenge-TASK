@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Controller, useForm } from 'react-hook-form';
+import AuthService from '../../services/auth';
 
 import api from '../../api/';
 
@@ -27,7 +28,7 @@ function Register() {
   const onSubmit = async (formData) => {
     try {
       const { data } = await api.post('/user', formData);
-      console.log(data);
+      AuthService.setToken(data.token);
     } catch (error) {
       console.log(error);
     }  
@@ -96,7 +97,7 @@ function Register() {
                     bg: 'blue.500',
                   }}
                 >
-                  Insreva-se
+                  <Link to='/task'>Registre-se</Link>
                 </Button>
               </Stack>
               <Stack pt={6}>

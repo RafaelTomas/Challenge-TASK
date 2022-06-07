@@ -94,8 +94,9 @@ function Login() {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
-                  <Link to='/task'> Login </Link>
+                  }}
+                >
+                  <Link to='/task'>Login</Link>
                 </Button>
               </Stack>
               <Stack pt={6}>
