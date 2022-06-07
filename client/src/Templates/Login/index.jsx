@@ -17,7 +17,8 @@ import {
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Controller, useForm } from 'react-hook-form';
-import api from '../../services/api';
+import api from '../../api/';
+import AuthService from '../../services/auth';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,11 +27,10 @@ function Login() {
   const onSubmit = async (formData) => {
     try {
       const { data } = await api.post('/login', formData);
-      localStorage.setItem('auth.token', data.token);
+      AuthService.setToken(data.token);
     } catch (error) {
       console.log(error);
     }
-
   };
 
   return (

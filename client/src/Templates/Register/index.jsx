@@ -18,7 +18,7 @@ import {
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Controller, useForm } from 'react-hook-form';
 
-import api from '../../services/api';
+import api from '../../api/';
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
