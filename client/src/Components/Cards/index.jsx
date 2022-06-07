@@ -1,4 +1,5 @@
 import React from 'react';
+import { addDays } from 'date-fns';
 import {
   Box,
   Center,
@@ -12,6 +13,7 @@ import Button from '../Button';
 import { propTypes } from './types';
 
 function Card({ handleDelete, handleEdit, task }) {
+  
   return (
     <Center>
       <Box
@@ -31,9 +33,8 @@ function Card({ handleDelete, handleEdit, task }) {
             <Text fontWeight="light" fontSize="medium">
               {task.descricao}
             </Text>
-            {/* date-fns */}
-            <Text fontWeight="bold" fontSize='lg'>{task.data_inicio}</Text>
-            <Text fontWeight="bold" fontSize='lg'>{task.data_fim}</Text>
+            <Text fontWeight="bold" fontSize='lg'>{addDays(new Date(task.data_inicio),1).toLocaleDateString('pt-BR')}</Text>
+            <Text fontWeight="bold" fontSize='lg'>{addDays(new Date(task.data_inicio),1).toLocaleDateString('pt-BR')}</Text>
             <HStack>
               <Button onClick={handleEdit} bgColor="blue.500" hoverColor="blue.400" fontColor="white">Editar</Button>
               <Button onClick={handleDelete} bgColor="red.500" fontColor="white">Deletar</Button>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -14,23 +14,34 @@ import {
   Text,
   useColorModeValue,
   Link as LinkChakra,
+  Spinner,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Controller, useForm } from 'react-hook-form';
+
 import api from '../../api/';
 import AuthService from '../../services/auth';
 
 function Login() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit, formState } = useForm({ mode: 'onChange' });
 
   const onSubmit = async (formData) => {
+    setLoading(true);
     try {
       const { data } = await api.post('/login', formData);
       AuthService.setToken(data.token);
+
+      if (data.token) {
+        setLoading(false);
+        navigate('/task');
+      }
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -87,8 +98,7 @@ function Login() {
               <Stack spacing={10} pt={2}>
                 <Button
                   type="submit"
-                  isDisabled={!formState.isValid}
-                  loadingText="Submitting"
+                  isDisabled={loading && !formState.isValid}
                   size="lg"
                   bg={'blue.400'}
                   color={'white'}
@@ -96,7 +106,7 @@ function Login() {
                     bg: 'blue.500',
                   }}
                 >
-                  <Link to='/task'>Login</Link>
+                  {loading && <Spinner size='sm' mr={2} />}Login
                 </Button>
               </Stack>
               <Stack pt={6}>

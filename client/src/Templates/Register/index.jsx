@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Box,
   FormControl,
@@ -14,26 +15,35 @@ import {
   Link as LinkChakra,
   Flex,
   Heading,
+  Spinner,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { Controller, useForm } from 'react-hook-form';
-import AuthService from '../../services/auth';
 
 import api from '../../api/';
+import AuthService from '../../services/auth';
 
 function Register() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit, formState } = useForm({ mode: 'onChange' });
-  
+
   const onSubmit = async (formData) => {
+    setLoading(true);
     try {
       const { data } = await api.post('/user', formData);
       AuthService.setToken(data.token);
+
+      if (data.token) {
+        setLoading(false);
+        navigate('/task');
+      }
     } catch (error) {
       console.log(error);
-    }  
+    }
+    setLoading(false);
   };
-    
+
   return (
     <Flex
       minH={'100vh'}
@@ -88,7 +98,7 @@ function Register() {
               <Stack spacing={10} pt={2}>
                 <Button
                   type="submit"
-                  isDisabled={!formState.isValid}
+                  isDisabled={loading && !formState.isValid}
                   loadingText="Submitting"
                   size="lg"
                   bg={'blue.400'}
@@ -97,7 +107,8 @@ function Register() {
                     bg: 'blue.500',
                   }}
                 >
-                  <Link to='/task'>Registre-se</Link>
+                  {loading && <Spinner size='sm' mr={2} />} Registre-se
+
                 </Button>
               </Stack>
               <Stack pt={6}>

@@ -78,7 +78,8 @@ function TaskForm({ onSubmit, task }) {
               control={control}
               rules={{ required: true }}
               render={({ field }) => <Input
-                type="text"
+                placeholder="yyyy-mm-dd"
+                type="date"
                 {...field} />}
             />
           </InputGroup>
@@ -91,7 +92,8 @@ function TaskForm({ onSubmit, task }) {
               control={control}
               rules={{ required: true }}
               render={({ field }) => <Input
-                type="text"
+                type="date"
+                placeholder="yyyy-mm-dd"
                 {...field} />}
             />
           </InputGroup>

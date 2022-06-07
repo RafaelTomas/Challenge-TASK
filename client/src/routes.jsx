@@ -5,8 +5,11 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Register from './Templates/Register';
 import Login from './Templates/Login';
 import Task from './Templates/Task';
+
 import AuthService from './services/auth';
+
 import Nav from './Components/Nav';
+import NotFound from './Components/404';
 
 const ProtectedRoute = ({ children }) => {
   if (!AuthService.isAuthenticated()) {
@@ -35,7 +38,7 @@ function MyRoutes() {
             </ProtectedRoute>
           }
         />
-        <Route path='*' exact={true} element={<h1>Not Found</h1>} />
+        <Route path='*' exact={true} element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
