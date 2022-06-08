@@ -7,6 +7,7 @@ import {
   FormLabel,
   InputGroup,
   Textarea,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../Button';
@@ -28,20 +29,24 @@ function TaskForm({ onSubmit, task }) {
     };
   }
 
-  const { control, handleSubmit, formState } = useForm({ mode: 'onChange', defaultValues });
+  const { control, handleSubmit, formState: { errors }, formState } = useForm({ mode: 'onChange', defaultValues });
+
 
   return (
     <VStack spacing={4} align={'stretch'}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl >
-          <FormLabel>Nome</FormLabel>
+        <FormControl isInvalid={errors.message}>
+          <FormLabel >Nome</FormLabel>
           <InputGroup>
             <Controller
               name="nome"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: true , maxLength: { value: 22, message: 'Nome tem que ter ate 22 characters' }}}
               render={({ field }) => <Input type="text" placeholder="Nome da atividade" {...field} />}
             />
+            <FormErrorMessage>
+              {errors.nome && errors.nome.message}
+            </FormErrorMessage>
           </InputGroup>
         </FormControl>
         <FormControl >
@@ -54,6 +59,7 @@ function TaskForm({ onSubmit, task }) {
               render={({ field }) => <Textarea resize="none" rows='6' placeholder="ex: Aniversario de Jó"
                 {...field} />}
             />
+
           </InputGroup>
         </FormControl>
         <FormLabel>Status</FormLabel>

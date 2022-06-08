@@ -8,12 +8,13 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { CheckIcon, RepeatClockIcon } from '@chakra-ui/icons';
 
 import Button from '../Button';
 import { propTypes } from './types';
 
 function Card({ handleDelete, handleEdit, task }) {
-  
+
   return (
     <Center>
       <Box
@@ -28,7 +29,15 @@ function Card({ handleDelete, handleEdit, task }) {
           <Stack>
             <HStack>
               <Text fontWeight="bold" fontSize='2xl'>{task.nome}</Text>
-              <Text>({task.status})</Text>
+              <Text>
+                {
+                  task.status === 'pendente' ? (
+                    <RepeatClockIcon />
+                  ) : task.status === 'concluida' ? (
+                    <CheckIcon />
+                  ) : ''
+                }
+              </Text>
             </HStack>
             <Text fontWeight="light" fontSize="medium">
               {task.descricao}

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Box,
   Link as LinkChakra,
-  Stack,
+  Stack
 } from '@chakra-ui/react';
 import Button from '../Button';
 import { Link } from 'react-router-dom';
