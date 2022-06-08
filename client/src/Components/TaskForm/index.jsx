@@ -29,19 +29,19 @@ function TaskForm({ onSubmit, task }) {
     };
   }
 
-  const { control, handleSubmit, formState: { errors }, formState } = useForm({ mode: 'onChange', defaultValues });
+  const { control, handleSubmit, formState: { errors, isSubmitting }, formState } = useForm({ mode: 'onChange', defaultValues });
 
 
   return (
     <VStack spacing={4} align={'stretch'}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.message}>
-          <FormLabel >Nome</FormLabel>
+          <FormLabel>Nome</FormLabel>
           <InputGroup>
             <Controller
               name="nome"
               control={control}
-              rules={{ required: true , maxLength: { value: 22, message: 'Nome tem que ter ate 22 characters' }}}
+              rules={{ required: true, maxLength: { value: 22, message: 'Nome tem que ter ate 22 characters' } }}
               render={({ field }) => <Input type="text" placeholder="Nome da atividade" {...field} />}
             />
             <FormErrorMessage>
@@ -49,7 +49,7 @@ function TaskForm({ onSubmit, task }) {
             </FormErrorMessage>
           </InputGroup>
         </FormControl>
-        <FormControl >
+        <FormControl isInvalid={errors.message}>
           <FormLabel>Descrição:</FormLabel>
           <InputGroup>
             <Controller
@@ -61,9 +61,9 @@ function TaskForm({ onSubmit, task }) {
             />
 
           </InputGroup>
-        </FormControl>
-        <FormLabel>Status</FormLabel>
-        <FormControl >
+        </FormControl >
+        <FormControl isInvalid={errors.message}>
+          <FormLabel>Status</FormLabel>
           <InputGroup>
             <Controller
               name="status"
@@ -76,7 +76,7 @@ function TaskForm({ onSubmit, task }) {
               } />
           </InputGroup>
         </FormControl>
-        <FormControl>
+        <FormControl isInvalid={errors.message}>
           <FormLabel>Data Inicio</FormLabel>
           <InputGroup>
             <Controller
@@ -89,7 +89,7 @@ function TaskForm({ onSubmit, task }) {
             />
           </InputGroup>
         </FormControl>
-        <FormControl >
+        <FormControl isInvalid={errors.message} >
           <FormLabel>Data Fim</FormLabel>
           <InputGroup>
             <Controller
@@ -107,8 +107,9 @@ function TaskForm({ onSubmit, task }) {
           type="submit"
           bgColor="blue.500"
           hoverColor="blue.500"
-          isDisabled={!formState.isValid}>
-          Criar
+          isDisabled={!formState.isValid}
+          isLoading={isSubmitting}>
+          Enviar
         </Button>
       </form>
     </VStack>
