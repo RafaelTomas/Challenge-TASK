@@ -1,5 +1,5 @@
 import React from 'react';
-import { addDays } from 'date-fns';
+import moment from 'moment';
 import {
   Box,
   Center,
@@ -33,8 +33,8 @@ function Card({ handleDelete, handleEdit, task }) {
             <Text fontWeight="light" fontSize="medium">
               {task.descricao}
             </Text>
-            <Text fontWeight="bold" fontSize='lg'>{addDays(new Date(task.data_inicio),1).toLocaleDateString('pt-BR')}</Text>
-            <Text fontWeight="bold" fontSize='lg'>{addDays(new Date(task.data_inicio),1).toLocaleDateString('pt-BR')}</Text>
+            <Text fontWeight="bold" fontSize='lg'>{moment(task.data_inicio).format('DD/MM/YYYY')}</Text>
+            <Text fontWeight="bold" fontSize='lg'>{moment(task.data_fim).format('DD/MM/YYYY')}</Text>
             <HStack>
               <Button onClick={handleEdit} bgColor="blue.500" hoverColor="blue.400" fontColor="white">Editar</Button>
               <Button onClick={handleDelete} bgColor="red.500" fontColor="white">Deletar</Button>

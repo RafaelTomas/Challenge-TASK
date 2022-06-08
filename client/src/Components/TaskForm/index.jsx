@@ -63,7 +63,7 @@ function TaskForm({ onSubmit, task }) {
               name="status"
               control={control}
               rules={{ required: true }}
-              render={({ field }) => <Select {...field} >
+              render={({ field }) => <Select placeholder='Selecione uma opção' {...field} >
                 <option value='pendente'> Pendente</option>
                 <option value='concluida'> Concluida</option>
               </Select>
@@ -78,7 +78,6 @@ function TaskForm({ onSubmit, task }) {
               control={control}
               rules={{ required: true }}
               render={({ field }) => <Input
-                placeholder="yyyy-mm-dd"
                 type="date"
                 {...field} />}
             />
@@ -93,7 +92,6 @@ function TaskForm({ onSubmit, task }) {
               rules={{ required: true }}
               render={({ field }) => <Input
                 type="date"
-                placeholder="yyyy-mm-dd"
                 {...field} />}
             />
           </InputGroup>

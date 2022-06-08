@@ -28,7 +28,7 @@ function MyRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} />
+        <Route exact path='/' element={<Login />} />
         <Route
           path="/task"
           element={

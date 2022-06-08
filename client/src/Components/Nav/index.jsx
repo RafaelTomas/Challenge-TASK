@@ -1,9 +1,7 @@
 import React from 'react';
 import {
   Box,
-  Flex,
   Link as LinkChakra,
-  IconButton,
   Stack,
 } from '@chakra-ui/react';
 import Button from '../Button';
